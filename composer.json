@@ -1,0 +1,28 @@
+{
+  "name": "eureka/component-mcrypt",
+  "description": "PHP mcrypt library.",
+  "type": "library",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Romain Cottard",
+      "email": "",
+      "role": "Developer"
+    }
+
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "Eureka\\Component\\Mcrypt": "./"
+    }
+  },
+
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/velkuns/component-mcrypt"
+    }
+  ]
+}
