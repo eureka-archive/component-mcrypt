@@ -15,7 +15,7 @@
 
   "autoload": {
     "psr-4": {
-      "Eureka\\Component\\Mcrypt": "./"
+      "Eureka\\Component\\Mcrypt\\": "./"
     }
   },
 
