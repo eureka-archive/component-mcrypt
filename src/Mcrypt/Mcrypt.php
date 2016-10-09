@@ -11,9 +11,9 @@ namespace Eureka\Component\Mcrypt;
 
 /**
  * Mcrypt lib class. Based on Mcrypt native php functions
+ * Exception code range: [1500-1599]
  *
  * @author  Romain Cottard
- * @version 1.0.0
  */
 class Mcrypt
 {
@@ -50,12 +50,11 @@ class Mcrypt
     /**
      * mcrypt constructor.
      *
-     * @param integer $cipher
-     * @param integer $mode
+     * @param int $cipher
+     * @param int $mode
      */
     public function __construct($cipher = self::CIPHER_BLOWFISH, $mode = self::MODE_CBC)
     {
-
         $this->setCipher($cipher);
         $this->setMode($mode);
         $this->generateIV();
@@ -65,13 +64,13 @@ class Mcrypt
      * Set encryption key
      *
      * @param  string $key
-     * @return $this
+     * @return self
      * @throws \InvalidArgumentException
      */
     public function setKey($key)
     {
         if (empty($key)) {
-            throw new \InvalidArgumentException('Key cannot be empty !', 15001);
+            throw new \InvalidArgumentException('Key cannot be empty !', 1500);
         }
 
         $this->key = $key;
@@ -93,13 +92,13 @@ class Mcrypt
      * Set encryption iv
      *
      * @param  string $iv
-     * @return $this
+     * @return self
      * @throws \InvalidArgumentException
      */
     public function setIV($iv)
     {
         if (empty($iv)) {
-            throw new \InvalidArgumentException('IV cannot be empty !', 15002);
+            throw new \InvalidArgumentException('IV cannot be empty !', 1501);
         }
 
         $this->iv = $iv;
@@ -110,7 +109,7 @@ class Mcrypt
     /**
      * Get Size for the IV (0: not used by the cipher/mode)
      *
-     * @return integer
+     * @return int
      */
     public function getSizeIV()
     {
@@ -144,7 +143,7 @@ class Mcrypt
     public function decrypt($data)
     {
         if (!is_string($data) || !preg_match('/^[0-9A-Fa-f]*$/', $data)) {
-            throw new \InvalidArgumentException('blowfishDecryptCBC require hex input', 15003);
+            throw new \InvalidArgumentException('blowfishDecryptCBC require hex input', 1502);
         }
 
         $data = pack('H*', $data);
@@ -155,14 +154,14 @@ class Mcrypt
             $return = mcrypt_decrypt($this->cipher, $this->key, $data, $this->mode, $this->iv);
         }
 
-        return rtrim($return, "\0");//str_replace(chr(0), '', $return);
+        return rtrim($return, "\0");
     }
 
     /**
      * Set cipher
      *
-     * @param  integer $cipher
-     * @return $this
+     * @param  int $cipher
+     * @return self
      * @throws \DomainException
      */
     protected function setCipher($cipher)
@@ -172,7 +171,7 @@ class Mcrypt
                 $this->cipher = MCRYPT_BLOWFISH;
                 break;
             default:
-                throw new \DomainException('Unsupported cipher method !', 15004);
+                throw new \DomainException('Unsupported cipher method !', 1503);
         }
 
         return $this;
@@ -181,8 +180,8 @@ class Mcrypt
     /**
      * Set mode
      *
-     * @param  integer $mode
-     * @return $this
+     * @param  int $mode
+     * @return self
      * @throws \DomainException
      */
     protected function setMode($mode)
@@ -192,7 +191,7 @@ class Mcrypt
                 $this->mode = MCRYPT_MODE_CBC;
                 break;
             default:
-                throw new \DomainException('Unsupported encryption method !', 15005);
+                throw new \DomainException('Unsupported encryption method !', 1504);
         }
 
         return $this;
@@ -201,7 +200,7 @@ class Mcrypt
     /**
      * Generate random IV & set it as property
      *
-     * @return $this
+     * @return self
      */
     protected function generateIV()
     {
